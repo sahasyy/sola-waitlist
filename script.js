@@ -1,4 +1,5 @@
-let joinCount = 32;
+let joinCount = parseInt(localStorage.getItem('joinCount')) + 32 || 0;
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const formContainer = document.getElementById('form-container');
@@ -8,13 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const followUpElem = document.querySelector('.follow-up');
     const taglineElem = document.getElementById('tagline');
     const taglineContainer = document.getElementById('tagline-container');
+    const joinCounterElem = document.getElementById('join-counter');
 
+    
     setTimeBasedTagline();
     
     waitlistForm.addEventListener('submit', (e) => {
       e.preventDefault();
       joinCount++;
-      document.getElementById('join-counter').textContent = `${joinCount} people have joined so far.`;
+      localStorage.setItem('joinCount', joinCount);
+      joinCounterElem.textContent = `${joinCount} people have have joined the movement.`;
 
       
       const firstName = document.getElementById('firstName').value.trim();
