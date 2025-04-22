@@ -1,3 +1,11 @@
+const { Client, Databases, ID} = Appwrite;
+
+// Load environment config
+(async () => {
+  const envConfig = await fetch('env.json').then(res => res.json());
+  window.envConfig = envConfig;
+})();
+
 let joinCount = parseInt(localStorage.getItem('joinCount')) + 32 || 0;
 
 
@@ -56,8 +64,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function submitToWaitlist(firstName, email) {
-      //make an API call here
+
+    const client = new Client();
+    client
+        .setEndpoint(window.envConfig.APPWRITE_ENDPOINT)
+        .setProject(window.envConfig.APPWRITE_PROJECT_ID);
+    const databases = new Databases(client);
+
+    const promise = databases.createDocument(
+        window.envConfig.APPWRITE_DATABASE_ID,
+        window.envConfig.APPWRITE_COLLECTION_ID,
+        ID.unique(),
+        {"f_name": firstName, "email": email}
+    );
+
+    promise.then(function (response) {
       console.log('Form submitted:', { firstName, email });
+    }, function (error) {
+      console.log(error);
+    });
+
+
 
       taglineContainer.style.opacity = '0';
       formContainer.style.opacity = '0';
