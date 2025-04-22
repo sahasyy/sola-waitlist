@@ -1,3 +1,5 @@
+let joinCount = 32;
+
 document.addEventListener('DOMContentLoaded', () => {
     const formContainer = document.getElementById('form-container');
     const confirmationContainer = document.getElementById('confirmation-container');
@@ -11,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     waitlistForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      joinCount++;
+      document.getElementById('join-counter').textContent = `${joinCount} people have joined so far.`;
+
       
       const firstName = document.getElementById('firstName').value.trim();
       const email = document.getElementById('email').value.trim();
