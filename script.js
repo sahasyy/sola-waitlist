@@ -2,12 +2,43 @@ const { Client, Databases, ID} = Appwrite;
 
 // Load environment config
 (async () => {
-  const envConfig = await fetch('env.json').then(res => res.json());
-  window.envConfig = envConfig;
+  try {
+    // Try to fetch from keys.env file first (for local development)
+    const envResponse = await fetch('keys.env');
+    if (envResponse.ok) {
+      const envText = await envResponse.text();
+      
+      // Parse the .env format into key-value pairs
+      const envConfig = {};
+      envText.split('\n').forEach(line => {
+        if (line && !line.startsWith('//')) {
+          const [key, value] = line.split('=');
+          if (key && value) {
+            envConfig[key.trim()] = value.trim();
+          }
+        }
+      });
+      
+      window.envConfig = envConfig;
+    } else {
+      // If running on Vercel, we might need to fetch from a different source
+      // or rely on environment variables injected into the HTML
+      console.warn('Failed to load keys.env, falling back to default configuration');
+      
+      // Create a placeholder for configuration that should be injected via Vercel
+      window.envConfig = {
+        APPWRITE_ENDPOINT: window.APPWRITE_ENDPOINT || "https://nyc.cloud.appwrite.io/v1",
+        APPWRITE_PROJECT_ID: window.APPWRITE_PROJECT_ID,
+        APPWRITE_DATABASE_ID: window.APPWRITE_DATABASE_ID,
+        APPWRITE_COLLECTION_ID: window.APPWRITE_COLLECTION_ID
+      };
+    }
+  } catch (error) {
+    console.error('Error loading environment config:', error);
+  }
 })();
 
 let joinCount = parseInt(localStorage.getItem('joinCount')) + 32 || 0;
-
 
 document.addEventListener('DOMContentLoaded', () => {
     const formContainer = document.getElementById('form-container');
