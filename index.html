@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sola</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&family=Vollkorn:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-gradient"></div>
+  
+  <main class="container">
+    <div class="logo-container">
+      <h1 class="logo">sola</h1>
+      <p class="tagline" id="tagline-container">
+        <span id="tagline"></span>
+      </p>
+    </div>
+    
+    <div class="glass-container" id="form-container">
+      <form id="waitlist-form">
+        <div class="input-group">
+          <label for="firstName">First name</label>
+          <input type="text" id="firstName" name="firstName" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <button type="submit" class="cta-button">
+          <span>Join the waitlist</span>
+        </button>
+      </form>
+    </div>
+    
+    <div class="confirmation-container" id="confirmation-container">
+      <p class="thank-you">Thank you.</p>
+      <p class="follow-up">The light's not far.</p>
+    </div>
+  </main>
+  
+  <footer>
+    <p>made with <span class="heart">♥</span> by sola team © 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
